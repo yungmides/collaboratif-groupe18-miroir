@@ -14,7 +14,10 @@
 |
 */
 
-use App\Http\Controllers\ListingController;
+
 use Laravel\Lumen\Routing\Router;
 
-$router->get('/', ListingController::class);
+$router->get('/', \App\Http\Controllers\ListingController::class);
+$router->get('/test', function () {
+    return "TEST";
+});
