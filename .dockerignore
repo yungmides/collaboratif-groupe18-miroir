@@ -1,0 +1,4 @@
+vendor
+.docker
+!.docker/apache
+composer.lock

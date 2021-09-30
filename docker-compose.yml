@@ -1,19 +1,24 @@
 version: '3.5'
 
 services:
+
   app:
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/var/www/html
-      - /var/www/html/vendor/
     build: .
-    command: php -S lumen:8000 -t public
-    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+
+
+  db:
+    image: mysql:8.0
+    platform: linux/x86_64
+    volumes:
+      - "./.docker/mysql/:/var/lib/mysql"
+    ports:
+      - ${DB_PORT}:${DB_PORT}
     environment:
-      XDEBUG_ENABLED: 1
-      XDEBUG_REMOTE_AUTOSTART: 1
-      XDEBUG_MAXNESTING_LEVEL: 1000
-      XDEBUG_REMOTE_CONNECT_BACK: 1
-      XDEBUG_REMOTE_HOST: host.docker.internal
-      PHP_IDE_CONFIG: serverName=localhost
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
