@@ -18,6 +18,6 @@
 use Laravel\Lumen\Routing\Router;
 
 $router->get('/', \App\Http\Controllers\ListingController::class);
-$router->get('/test', function () {
-    return "TEST";
+$router->get('/time', function () {
+    return response()->json(["time"=>time()]);
 });
