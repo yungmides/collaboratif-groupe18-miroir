@@ -8,13 +8,10 @@ class MoviesToDto
 {
     public static function provideTransformer(Movies $movie)
     {
-        switch ($movie->type) {
-            case 'Comedy':
-                return ['id' => $movie->id, 'name' => $movie->name, 'category' => 'Comedy / Drama',];
-            case 'Mystery/Crime':
-                return ['id' => $movie->id, 'name' => $movie->name, 'category' => 'Mystery / Crime',];
-            default:
-                return ['id' => $movie->id, 'name' => $movie->name, 'category' => $movie->type,];
-        }
+        return match ($movie->type) {
+            'Comedy' => ['id' => $movie->id, 'name' => $movie->name, 'category' => 'Comedy / Drama',],
+            'Mystery/Crime' => ['id' => $movie->id, 'name' => $movie->name, 'category' => 'Mystery / Crime',],
+            default => ['id' => $movie->id, 'name' => $movie->name, 'category' => $movie->type,],
+        };
     }
 }
