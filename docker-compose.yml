@@ -1,7 +1,7 @@
 version: '3.5'
 
 services:
-  lumen:
+  app:
     ports:
       - "8000:8000"
     volumes:
@@ -10,3 +10,10 @@ services:
     build: .
     command: php -S lumen:8000 -t public
     restart: always
+    environment:
+      XDEBUG_ENABLED: 1
+      XDEBUG_REMOTE_AUTOSTART: 1
+      XDEBUG_MAXNESTING_LEVEL: 1000
+      XDEBUG_REMOTE_CONNECT_BACK: 1
+      XDEBUG_REMOTE_HOST: host.docker.internal
+      PHP_IDE_CONFIG: serverName=localhost
