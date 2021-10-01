@@ -1,6 +1,5 @@
 <?php
 
-
 /** @var Router $router */
 
 /*
@@ -14,11 +13,10 @@
 |
 */
 
-
 use App\Http\Controllers\ListingController;
 use Laravel\Lumen\Routing\Router;
 
 $router->get('/', ListingController::class);
 $router->get('/time', function () {
-    return response()->json(["time"=>time()]);
+    return response()->json(['time'=>time()]);
 });
