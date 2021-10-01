@@ -1,0 +1,14 @@
+#!/bin/bash
+# Check signin key
+
+globalEmail=`git config --global --get user.email`
+signingKey=`git config --global --get user.signingkey`
+
+if [[ $signingKey -eq "" ]];
+then
+        echo "No signing key found for $globalEmail. Check global gitconfig"
+        exit 1
+else
+        echo "signin key correct for $globalEmail, you can commit"
+        exit 0
+fi
