@@ -1,10 +1,10 @@
 #!/bin/bash
 # Check signin key
 
-globalEmail=`git config --global --get user.email`
-signingKey=`git config --global --get user.signingkey`
+globalEmail=`git config --get user.email`
+signingKey=`git config --get user.signingkey`
 
-if [[ $signingKey -eq "" ]];
+if [[ $signingKey == "" ]]
 then
         echo "No signing key found for $globalEmail. Check global gitconfig"
         exit 1
@@ -12,3 +12,28 @@ else
         echo "signin key correct for $globalEmail, you can commit"
         exit 0
 fi
+
+
+echo "php-cs-fixer pre commit hook start"
+
+PHP_CS_FIXER="vendor/bin/php-cs-fixer"
+HAS_PHP_CS_FIXER=false
+
+if [ -x vendor/bin/php-cs-fixer ]; then
+    HAS_PHP_CS_FIXER=true
+fi
+
+if $HAS_PHP_CS_FIXER; then
+#    git status --porcelain | grep -e '^[AM]\(.*\).php$' | cut -c 3- | while read line; do
+#        $PHP_CS_FIXER fix --config-file=$ROOT/.php_cs --verbose "$line";
+        composer lint;
+#    done
+else
+    echo ""
+    echo "Please install php-cs-fixer, e.g.:"
+    echo ""
+    echo "  composer require --dev fabpot/php-cs-fixer:dev-master"
+    echo ""
+fi
+
+echo "php-cs-fixer pre commit hook finish"
