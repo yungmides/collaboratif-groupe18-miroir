@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Movies;
 use App\Transformers\MoviesToDto;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class ListingController extends Controller
