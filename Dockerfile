@@ -9,9 +9,6 @@ RUN apt-get update && apt-get install -y curl ca-certificates git zip unzip libm
     && docker-php-ext-enable memcached \
     && docker-php-ext-install pdo pdo_mysql
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # Config apache
 COPY ./.docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
 RUN chown -R www-data:www-data /var/www/html && a2enmod rewrite
@@ -22,4 +19,6 @@ RUN chown -R www-data:www-data /var/www/html && a2enmod rewrite
 COPY . .
 # Get latest Composer
 COPY --from=composer:1 /usr/bin/composer /usr/bin/composer
-RUN COMPOSER_MEMORY_LIMIT=-1 composer install
+RUN composer install
+
+RUN php artisan migrate --seed
