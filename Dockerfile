@@ -10,7 +10,9 @@ RUN apt-get update && apt-get install -y curl ca-certificates git zip unzip libm
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && docker-php-ext-install pdo pdo_mysql \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-enable gd
+    && docker-php-ext-enable gd\
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
 # Config apache
 COPY ./.docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
