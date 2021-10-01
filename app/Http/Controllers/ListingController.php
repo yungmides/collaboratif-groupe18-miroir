@@ -9,14 +9,14 @@ use Illuminate\Http\JsonResponse;
 
 class ListingController extends Controller
 {
-    private $movieRepository;
+    private Movies $movieRepository;
 
     public function __construct(Movies $movieRepository)
     {
         $this->movieRepository = $movieRepository;
     }
 
-    public function __invoke()
+    public function __invoke(): JsonResponse
     {
         return new JsonResponse([
             'status' => 'success',
