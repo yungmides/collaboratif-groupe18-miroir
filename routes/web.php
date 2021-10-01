@@ -15,9 +15,10 @@
 */
 
 
+use App\Http\Controllers\ListingController;
 use Laravel\Lumen\Routing\Router;
 
-$router->get('/', \App\Http\Controllers\ListingController::class);
+$router->get('/', ListingController::class);
 $router->get('/time', function () {
     return response()->json(["time"=>time()]);
 });

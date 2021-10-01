@@ -3,6 +3,5 @@
 Homestead.json
 Homestead.yaml
 .env
-.docker/mysql/*
 */.DS_Store
 .DS_Store
