@@ -13,12 +13,7 @@ RUN apt-get update && apt-get install -y curl ca-certificates git zip unzip libm
 COPY ./.docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
 RUN chown -R www-data:www-data /var/www/html && a2enmod rewrite
 
-#A RETIRER QUAND PHP 8
-#RUN service apache2 start
-
 COPY . .
 # Get latest Composer
 COPY --from=composer:1 /usr/bin/composer /usr/bin/composer
-RUN composer install
-
-RUN php artisan migrate --seed
+RUN composer install && php artisan migrate --seed
